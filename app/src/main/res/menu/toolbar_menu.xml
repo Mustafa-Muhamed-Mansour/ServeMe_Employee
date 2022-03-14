@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/messagesFragment"
+        android:title="Messages"
+        android:icon="@drawable/message"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/addWorkFragment"
+        android:title="Add Works"
+        android:icon="@drawable/add_work"
+        app:showAsAction="ifRoom"
+        />
+
+</menu>

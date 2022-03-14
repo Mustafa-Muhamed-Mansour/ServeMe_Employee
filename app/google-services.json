@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "988092839032",
+    "project_id": "serveme-be897",
+    "storage_bucket": "serveme-be897.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:988092839032:android:f35e74344b4077c267298d",
+        "android_client_info": {
+          "package_name": "com.serveme_employee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "988092839032-r4jk6nf7jbv63h4o62pero4nrpv6qu8q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.serveme_employee",
+            "certificate_hash": "7bb8438b304fbe1b6b78b565d8b97c4c17c4d582"
+          }
+        },
+        {
+          "client_id": "988092839032-r8lul557nq6r7qv77eqpn0r81u6p9qkb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjPGM9UpuinkpcTY-n9ZaN2d1_a57ahUo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "988092839032-r8lul557nq6r7qv77eqpn0r81u6p9qkb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
