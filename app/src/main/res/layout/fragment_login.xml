@@ -11,6 +11,7 @@
         android:id="@+id/parent_nested_login"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#E6F1F7"
         >
 
     <RelativeLayout

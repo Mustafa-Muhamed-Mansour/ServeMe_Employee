@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".message.MessageFragment"
+        android:background="#E6F1F7"
         >
 
         <ImageButton
@@ -20,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
             android:src="@drawable/ic_back"
-            android:background="@color/white"
+            android:background="#00000000"
             />
 
 
@@ -89,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="#00000000"
                 android:src="@drawable/more_menu"
                 android:clickable="false"
                 android:focusable="false"
