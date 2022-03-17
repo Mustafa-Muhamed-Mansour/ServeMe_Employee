@@ -1,7 +1,7 @@
 # Screen shot
 
 <img src = "https://user-images.githubusercontent.com/53982895/158426198-3edae4e1-cec1-45c2-bad8-0a501dcfa009.png" width = "200" height = "400">  <img src = "https://user-images.githubusercontent.com/53982895/158426219-38e04022-1167-4bbe-8bc4-b3eb02063b77.png" width = "200" height = "400">
-<img src = "https://user-images.githubusercontent.com/53982895/158426240-7d7a7837-2f55-4e57-a625-338531d31074.png" width = "200" height = "400">  <img src = "https://user-images.githubusercontent.com/53982895/158426377-9ddee33d-2afd-441f-82c1-e6e932dcfaf6.png" width = "200" height = "400">
+<img src = "" width = "200" height = "400">  <img src = "https://user-images.githubusercontent.com/53982895/158426377-9ddee33d-2afd-441f-82c1-e6e932dcfaf6.png" width = "200" height = "400">
 <img src = "https://user-images.githubusercontent.com/53982895/158426418-35632b3d-ae76-4ef9-8db3-618c14500afe.png" width = "200" height = "400">  <img src = "https://user-images.githubusercontent.com/53982895/158426460-8c90f355-691a-4d41-9746-34ee247dc196.png" width = "200" height = "400">
 <img src = "https://user-images.githubusercontent.com/53982895/158426482-a989fb4f-d30d-470e-bf6b-cb05fb2d1943.png" width = "200" height = "400">  <img src = "https://user-images.githubusercontent.com/53982895/158426503-be2cf307-764e-4f31-a2d5-f70872039d7d.png" width = "200" height = "400">
 <img src = "https://user-images.githubusercontent.com/53982895/158426534-fd799308-73ee-40b3-b581-c01a9ffb769d.png" width = "200" height = "400">  <img src = "https://user-images.githubusercontent.com/53982895/158426578-fa61889a-9b13-4164-8b8e-b74179f3fd05.png" width = "200" height = "400">
