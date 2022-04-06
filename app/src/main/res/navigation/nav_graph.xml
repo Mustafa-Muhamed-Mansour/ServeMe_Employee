@@ -96,7 +96,12 @@
         android:name="com.serveme_employee.request.RequestFragment"
         android:label="RequestFragment"
         tools:layout="@layout/fragment_request"
-        />
+        >
+        <action
+            android:id="@+id/action_requestFragment_to_userDetailFragment"
+            app:destination="@id/userDetailFragment"
+            app:popUpTo="@id/userDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addWorkFragment"
         android:name="com.serveme_employee.work.AddWorkFragment"
@@ -108,4 +113,10 @@
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/userDetailFragment"
+        android:name="com.serveme_employee.user.UserDetailFragment"
+        android:label="UserDetailFragment"
+        tools:layout="@layout/fragment_user_detail"
+        />
 </navigation>

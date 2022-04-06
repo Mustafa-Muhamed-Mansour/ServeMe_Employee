@@ -35,12 +35,39 @@
             android:background="@drawable/add_photo"
             />
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txt_title_work"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            android:hint="Title Work"
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:helperText="Required*"
+            app:helperTextTextColor="#E30C0C"
+            app:endIconMode="clear_text"
+            app:startIconDrawable="@drawable/ic_work"
+            android:layout_below="@id/img_work"
+            >
+
+            <EditText
+                android:id="@+id/edit_title_work"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <Button
             android:id="@+id/btn_add_work"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_create_account"
-            android:layout_below="@id/img_work"
+            android:layout_below="@id/txt_title_work"
             android:layout_margin="@dimen/_5sdp"
             android:layout_centerHorizontal="true"
             android:text="Add"
@@ -54,7 +81,7 @@
             android:id="@+id/loading_add_work"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/img_work"
+            android:layout_below="@id/txt_title_work"
             android:layout_centerInParent="true"
             android:indeterminateTint="@color/black"
             android:layout_margin="@dimen/_5sdp"

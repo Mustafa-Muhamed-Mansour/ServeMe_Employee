@@ -51,6 +51,8 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.WorkViewHolder
                 .load(model.getImage())
                 .into(holder.binding.itemImgWork);
 
+        holder.binding.itemTxtTitleWork.setText(model.getTitle());
+
         holder.binding.itemImgBtnMore.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -72,6 +74,12 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.WorkViewHolder
                                         .child("Works")
                                         .child(model.getRandomKey())
                                         .removeValue();
+
+                                deleteRef
+                                        .child("Works")
+                                        .child(model.getRandomKey())
+                                        .removeValue();
+
                                 Toast.makeText(holder.itemView.getContext(), "Done is Sucessfully", Toast.LENGTH_SHORT).show();
                                 break;
                             default:

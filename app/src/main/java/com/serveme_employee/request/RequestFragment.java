@@ -68,34 +68,34 @@ public class RequestFragment extends Fragment
         firebaseAuth = FirebaseAuth.getInstance();
         retriveRef = FirebaseDatabase.getInstance().getReference();
 
-
         binding.loadingRequest.setVisibility(View.VISIBLE);
-//        retriveRef
-//                .child("Employees")
-//                .child(firebaseAuth.getUid())
-//                .child("Works")
-//                .addValueEventListener(new ValueEventListener()
-//                {
-//                    @SuppressLint("NotifyDataSetChanged")
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot)
-//                    {
-//                        binding.loadingRequest.setVisibility(View.GONE);
-//                        requestModels.clear();
-//                        for(DataSnapshot dataSnapshot : snapshot.getChildren())
-//                        {
-//                            RequestModel requestModel = dataSnapshot.getValue(RequestModel.class);
-//                            requestModels.add(requestModel);
-//                        }
-//                        requestAdapter.notifyDataSetChanged();
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error)
-//                    {
-//                        binding.loadingRequest.setVisibility(View.GONE);
-//                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
+        retriveRef
+                .child("Employees")
+                .child(firebaseAuth.getUid())
+                .child("Request")
+                .addValueEventListener(new ValueEventListener()
+                {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot)
+                    {
+                        binding.loadingRequest.setVisibility(View.GONE);
+                        requestModels.clear();
+
+                        for(DataSnapshot dataSnapshot : snapshot.getChildren())
+                        {
+                            RequestModel requestModel = dataSnapshot.getValue(RequestModel.class);
+                            requestModels.add(requestModel);
+                        }
+                        requestAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error)
+                    {
+                        binding.loadingRequest.setVisibility(View.GONE);
+                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

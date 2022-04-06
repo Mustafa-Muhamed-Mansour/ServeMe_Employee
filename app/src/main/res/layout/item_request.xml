@@ -7,7 +7,33 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_item_request"
+            android:layout_width="@dimen/_135sdp"
+            android:layout_height="@dimen/_135sdp"
+            android:layout_margin="@dimen/_5sdp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_centerHorizontal="true"
+            />
+
+
+        <TextView
+            android:id="@+id/txt_name_item_request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_name"
+            android:drawablePadding="@dimen/_5sdp"
+            android:text="Name"
+            android:textSize="@dimen/_16ssp"
+            android:textColor="@color/black"
+            android:layout_margin="@dimen/_5sdp"
+            android:layout_below="@id/img_item_request"
+            />
+
+
 
     </RelativeLayout>
 </layout>

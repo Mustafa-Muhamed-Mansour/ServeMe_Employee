@@ -33,6 +33,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position)
     {
         MessageModel model = messageModels.get(position);
+
+        holder.binding.txtItemMessage.setText(model.getMessage());
     }
 
     @Override

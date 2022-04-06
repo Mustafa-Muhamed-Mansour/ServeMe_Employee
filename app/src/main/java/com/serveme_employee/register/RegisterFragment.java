@@ -1,5 +1,7 @@
 package com.serveme_employee.register;
 
+import static com.serveme_employee.constant.VariableConstant.JOB;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -47,7 +49,8 @@ public class RegisterFragment extends Fragment
     private ActivityResultLauncher<Intent> someActivityResultLauncher;
 
     private RadioButton radioButton;
-    private String idRef, image, ID;
+    private String idRef, image, ID, job;
+    private ArrayAdapter<String> arrayJob;
     private Uri resultURI;
     private FirebaseAuth firebaseAuth;
     private StorageReference imageRef;
@@ -70,6 +73,10 @@ public class RegisterFragment extends Fragment
 
 
         navController = Navigation.findNavController(view);
+
+        arrayJob = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, JOB);
+        arrayJob.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.spinnerJob.setAdapter(arrayJob);
 
         firebaseAuth = FirebaseAuth.getInstance();
         idRef = FirebaseDatabase.getInstance().getReference().push().getKey();
@@ -117,6 +124,35 @@ public class RegisterFragment extends Fragment
             }
         });
 
+        binding.spinnerJob.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+            {
+                if (JOB[i].equals("Select Job"))
+                {
+                    binding.textJobRegister.setText(null);
+                }
+
+                else
+                {
+                    job = adapterView.getItemAtPosition(i).toString();
+                    binding.textJobRegister.setText(job);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView)
+            {
+//                if (adapterView.getItemAtPosition(0).equals("Select Job"))
+//                {
+//                    Snackbar.make(binding.parentNestedRegister, "Please enter your job", Snackbar.LENGTH_SHORT).show();
+////                    binding.spinnerJob.requestFocus();
+////                    return;
+//                }
+            }
+        });
+
         binding.btnCreateAccount.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -128,7 +164,7 @@ public class RegisterFragment extends Fragment
                 String phoneNumber = binding.editPhoneRegister.getText().toString();
                 String email = binding.editEmailRegister.getText().toString();
                 String password = binding.editPasswordRegister.getText().toString();
-                String job = binding.editJobRegister.getText().toString();
+                String job = binding.textJobRegister.getText().toString();
 
                 if (resultURI == null)
                 {
@@ -171,12 +207,16 @@ public class RegisterFragment extends Fragment
                     return;
                 }
 
-                if (TextUtils.isEmpty(job))
+                if (binding.spinnerJob.getSelectedItem().toString().equalsIgnoreCase("Job") || binding.spinnerJob.getSelectedItem().toString().equalsIgnoreCase("Select Job"))
                 {
                     Snackbar.make(binding.parentNestedRegister, "Please enter your job", Snackbar.LENGTH_SHORT).show();
-                    binding.editJobRegister.requestFocus();
-                    return;
                 }
+//                if (TextUtils.isEmpty(job))
+//                {
+//                    Snackbar.make(binding.parentNestedRegister, "Please enter your job", Snackbar.LENGTH_SHORT).show();
+//                    binding.editJobRegister.requestFocus();
+//                    return;
+//                }
 
                 else
                 {
@@ -209,7 +249,10 @@ public class RegisterFragment extends Fragment
                                                                     @Override
                                                                     public void onSuccess(Uri uri)
                                                                     {
-                                                                        EmployeeModel employeeModel = new EmployeeModel(randomKey, firebaseAuth.getUid(), uri.toString(), firstName, lastName, phoneNumber, email, job, radioButton.getText().toString());
+//                                                                        JobModel jobModel = new JobModel(randomKey, firebaseAuth.getUid(), "", job);
+
+//                                                                        EmployeeModel employeeModel = new EmployeeModel(randomKey, firebaseAuth.getUid(), jobModel.getIdJob(), uri.toString(), firstName, lastName, phoneNumber, email, job, radioButton.getText().toString());
+                                                                        EmployeeModel employeeModel = new EmployeeModel();
 
                                                                         databaseRef
                                                                                 .child("Employees")
@@ -219,6 +262,16 @@ public class RegisterFragment extends Fragment
                                                                         databaseRef
                                                                                 .child("Jobs")
                                                                                 .child(job)
+                                                                                .child(randomKey)
+                                                                                .setValue(employeeModel);
+
+//                                                                        databaseRef
+//                                                                                .child("Job")
+//                                                                                .child(randomKey)
+//                                                                                .setValue(jobModel);
+
+                                                                        databaseRef
+                                                                                .child("Search for Employees")
                                                                                 .child(randomKey)
                                                                                 .setValue(employeeModel);
 //                                                                    databaseRef

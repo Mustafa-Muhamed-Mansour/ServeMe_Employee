@@ -6,17 +6,19 @@ public class WorkModel
     private String randomKey;
     private String id;
     private String image;
+    private String title;
 
 
     public WorkModel()
     {
     }
 
-    public WorkModel(String randomKey, String id, String image)
+    public WorkModel(String randomKey, String id, String image, String title)
     {
         this.randomKey = randomKey;
         this.id = id;
         this.image = image;
+        this.title = title;
     }
 
     public String getRandomKey() {
@@ -29,5 +31,9 @@ public class WorkModel
 
     public String getImage() {
         return image;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }

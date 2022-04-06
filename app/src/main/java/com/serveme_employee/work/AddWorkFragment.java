@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,9 +107,18 @@ public class AddWorkFragment extends Fragment
             @Override
             public void onClick(View view)
             {
+                String title = binding.editTitleWork.getText().toString();
+
                 if (workImageRef == null)
                 {
                     Snackbar.make(binding.parentRelativeAddWork, "Please enter work image", Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(title))
+                {
+                    Snackbar.make(binding.parentRelativeAddWork, "Please enter work title", Snackbar.LENGTH_SHORT).show();
+                    binding.editTitleWork.requestFocus();
                     return;
                 }
 
@@ -133,7 +143,7 @@ public class AddWorkFragment extends Fragment
                                                 @Override
                                                 public void onSuccess(Uri uri)
                                                 {
-                                                    WorkModel workModel = new WorkModel(randomKey, firebaseAuth.getUid(), uri.toString());
+                                                    WorkModel workModel = new WorkModel(randomKey, firebaseAuth.getUid(), uri.toString(), title);
 
                                                     databaseRef
                                                             .child("Employees")

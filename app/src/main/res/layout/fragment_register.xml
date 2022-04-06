@@ -200,32 +200,80 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_job_register"
+
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/text_job_register"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="@dimen/_5sdp"-->
+<!--            android:layout_below="@id/text_password_register"-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--            android:hint="Job"-->
+<!--            android:textColorHint="@color/black"-->
+<!--            app:helperText="Required*"-->
+<!--            app:helperTextTextColor="#E30C0C"-->
+<!--            app:startIconDrawable="@drawable/ic_work"-->
+<!--            >-->
+
+<!--            <AutoCompleteTextView-->
+<!--                android:id="@+id/auto_txt_job"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:inputType="none"-->
+<!--                />-->
+
+<!--&lt;!&ndash;            app:helperText="Required*"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:helperTextTextColor="#E30C0C"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:endIconMode="clear_text"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:startIconDrawable="@drawable/ic_work"&ndash;&gt;-->
+<!--&lt;!&ndash;            <EditText&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/edit_job_register"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textColor="@color/black"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textSize="@dimen/_15ssp"&ndash;&gt;-->
+<!--&lt;!&ndash;                />&ndash;&gt;-->
+
+
+
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+        <LinearLayout
+            android:id="@+id/linear_job"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5sdp"
+            android:orientation="horizontal"
             android:layout_below="@id/text_password_register"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:helperText="Required*"
-            app:helperTextTextColor="#E30C0C"
-            app:endIconMode="clear_text"
-            app:startIconDrawable="@drawable/ic_work"
-            android:hint="Job"
-            android:textColorHint="@color/black"
+            android:layout_margin="@dimen/_5sdp"
+            android:padding="@dimen/_5sdp"
             >
 
-            <EditText
-                android:id="@+id/edit_job_register"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/text_job_register"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:textColor="@color/black"
+                android:textSize="@dimen/_16ssp"
+                android:drawableStart="@drawable/ic_work"
+                android:drawablePadding="@dimen/_5sdp"
+                android:hint="Job"
+                android:textColorHint="@color/black"
+                android:layout_margin="@dimen/_3sdp"
+                android:padding="@dimen/_5sdp"
+                />
+
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/spinner_job"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:textSize="@dimen/_15ssp"
                 />
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txt_gender"
@@ -235,7 +283,7 @@
             android:textSize="@dimen/_14ssp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:layout_below="@id/text_job_register"
+            android:layout_below="@id/linear_job"
             android:layout_centerInParent="true"
             android:padding="@dimen/_5sdp"
             />

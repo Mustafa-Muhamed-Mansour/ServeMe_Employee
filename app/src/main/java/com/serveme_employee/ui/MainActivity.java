@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity
                     case R.id.registerFragment:
                     case R.id.messagesFragment:
                     case R.id.addWorkFragment:
+                    case R.id.userDetailFragment:
                         binding.bottomNavView.setVisibility(View.GONE);
                         break;
                     default:
