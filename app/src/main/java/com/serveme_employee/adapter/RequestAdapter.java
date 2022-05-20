@@ -60,30 +60,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                 dataUser.putString("User_Image", model.getUser_Image());
                 dataUser.putString("User_Phone", model.getUser_Phone());
                 dataUser.putString("User_Email", model.getUser_Email());
-                Navigation.findNavController(view).navigate(R.id.action_requestFragment_to_userDetailFragment, dataUser);
-//                AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext());
-//                builder.setTitle("Hi");
-//                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
-//                {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i)
-//                    {
-//                        Toast.makeText(holder.itemView.getContext(), "Done", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//                builder.setNegativeButton("No", new DialogInterface.OnClickListener()
-//                {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i)
-//                    {
-//                        Toast.makeText(holder.itemView.getContext(), "Mesh Done", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
-////                builder.create();
-//                builder.show();
-
-
+                Navigation.findNavController(view).navigate(R.id.userDetailFragment, dataUser);
             }
         });
     }

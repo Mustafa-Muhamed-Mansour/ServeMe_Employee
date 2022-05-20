@@ -49,13 +49,12 @@ public class RegisterFragment extends Fragment
     private ActivityResultLauncher<Intent> someActivityResultLauncher;
 
     private RadioButton radioButton;
-    private String idRef, image, ID, job;
+    private String idRef, ID, job;
     private ArrayAdapter<String> arrayJob;
     private Uri resultURI;
     private FirebaseAuth firebaseAuth;
     private StorageReference imageRef;
     private DatabaseReference databaseRef;
-//    private FirebaseFirestore databaseRef;
 
 
     @Override
@@ -72,19 +71,33 @@ public class RegisterFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
 
 
+        initViews(view);
+        initDatabase();
+        clickViews();
+        backgroundProcess();
+
+    }
+
+    private void initViews(View view)
+    {
         navController = Navigation.findNavController(view);
 
         arrayJob = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, JOB);
         arrayJob.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spinnerJob.setAdapter(arrayJob);
+    }
 
+    private void initDatabase()
+    {
         firebaseAuth = FirebaseAuth.getInstance();
         idRef = FirebaseDatabase.getInstance().getReference().push().getKey();
         imageRef = FirebaseStorage.getInstance().getReference().child("Images").child("Image_Employees").child(idRef);
         ID = firebaseAuth.getUid();
         databaseRef = FirebaseDatabase.getInstance().getReference();
-//        databaseRef = FirebaseFirestore.getInstance();
+    }
 
+    private void clickViews()
+    {
         binding.imgAddPhoto.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -144,12 +157,7 @@ public class RegisterFragment extends Fragment
             @Override
             public void onNothingSelected(AdapterView<?> adapterView)
             {
-//                if (adapterView.getItemAtPosition(0).equals("Select Job"))
-//                {
-//                    Snackbar.make(binding.parentNestedRegister, "Please enter your job", Snackbar.LENGTH_SHORT).show();
-////                    binding.spinnerJob.requestFocus();
-////                    return;
-//                }
+                Toast.makeText(getActivity(), "Nothing Selected " + adapterView.toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -211,12 +219,6 @@ public class RegisterFragment extends Fragment
                 {
                     Snackbar.make(binding.parentNestedRegister, "Please enter your job", Snackbar.LENGTH_SHORT).show();
                 }
-//                if (TextUtils.isEmpty(job))
-//                {
-//                    Snackbar.make(binding.parentNestedRegister, "Please enter your job", Snackbar.LENGTH_SHORT).show();
-//                    binding.editJobRegister.requestFocus();
-//                    return;
-//                }
 
                 else
                 {
@@ -249,9 +251,6 @@ public class RegisterFragment extends Fragment
                                                                     @Override
                                                                     public void onSuccess(Uri uri)
                                                                     {
-//                                                                        JobModel jobModel = new JobModel(randomKey, firebaseAuth.getUid(), "", job);
-
-//                                                                        EmployeeModel employeeModel = new EmployeeModel(randomKey, firebaseAuth.getUid(), jobModel.getIdJob(), uri.toString(), firstName, lastName, phoneNumber, email, job, radioButton.getText().toString());
                                                                         EmployeeModel employeeModel = new EmployeeModel();
 
                                                                         databaseRef
@@ -265,36 +264,17 @@ public class RegisterFragment extends Fragment
                                                                                 .child(randomKey)
                                                                                 .setValue(employeeModel);
 
-//                                                                        databaseRef
-//                                                                                .child("Job")
-//                                                                                .child(randomKey)
-//                                                                                .setValue(jobModel);
-
                                                                         databaseRef
                                                                                 .child("Search for Employees")
                                                                                 .child(randomKey)
                                                                                 .setValue(employeeModel);
-//                                                                    databaseRef
-//                                                                            .child("Employees")
-//                                                                            .child(ID)
-//                                                                            .setValue(employeeModel);
-//                                                                        databaseRef
-//                                                                                .collection("Employees")
-//                                                                                .document(ID)
-//                                                                                .set(employeeModel);
-
-//                                                                        databaseRef
-//                                                                                .collection("Jobs")
-//                                                                                .document(job)
-//                                                                                .collection(randomKey)
-//                                                                                .document()
-//                                                                                .set(employeeModel);
 
                                                                         binding.imgAddPhoto.setImageURI(null);
 
                                                                         binding.loadingRegister.setVisibility(View.GONE);
                                                                         Toast.makeText(getActivity(), "Done", Toast.LENGTH_SHORT).show();
-                                                                        navController.navigate(R.id.action_registerFragment_to_homeFragment);
+//                                                                        navController.navigate(R.id.action_registerFragment_to_homeFragment);
+                                                                        Navigation.findNavController(view).navigate(R.id.homeFragment);
                                                                     }
                                                                 }).addOnFailureListener(new OnFailureListener()
                                                         {
@@ -306,21 +286,6 @@ public class RegisterFragment extends Fragment
                                                                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                                                             }
                                                         });
-//                                                        EmployeeModel employeeModel = new EmployeeModel(randomKey, ID, resultURI.toString(), firstName, lastName, phoneNumber, email, job, radioButton.getText().toString());
-////                                                                    databaseRef
-////                                                                            .child("Employees")
-////                                                                            .child(ID)
-////                                                                            .setValue(employeeModel);
-//                                                        databaseRef
-//                                                                .collection("Employees")
-//                                                                .document(ID)
-//                                                                .set(employeeModel);
-//
-//                                                        binding.imgAddPhoto.setImageURI(null);
-//
-//                                                        binding.loadingRegister.setVisibility(View.GONE);
-//                                                        Toast.makeText(getActivity(), "Done", Toast.LENGTH_SHORT).show();
-//                                                        navController.navigate(R.id.action_registerFragment_to_homeFragment);
                                                     }
                                                 }).addOnFailureListener(new OnFailureListener()
                                         {
@@ -340,86 +305,13 @@ public class RegisterFragment extends Fragment
                                     }
                                 }
                             });
-//                            .addOnSuccessListener(new OnSuccessListener<AuthResult>()
-//                            {
-//                                @Override
-//                                public void onSuccess(AuthResult authResult)
-//                                {
-//                                    imageRef
-//                                            .putFile(resultURI)
-//                                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
-//                                            {
-//                                                @Override
-//                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
-//                                                {
-//                                                    imageRef
-//                                                            .getDownloadUrl()
-//                                                            .addOnSuccessListener(new OnSuccessListener<Uri>()
-//                                                            {
-//                                                                @Override
-//                                                                public void onSuccess(Uri uri)
-//                                                                {
-//                                                                    EmployeeModel employeeModel = new EmployeeModel(randomKey, ID, uri.toString(), firstName, lastName, phoneNumber, email, job, radioButton.getText().toString());
-////                                                                    databaseRef
-////                                                                            .child("Employees")
-////                                                                            .child(ID)
-////                                                                            .setValue(employeeModel);
-//                                                                    databaseRef
-//                                                                            .collection("Employees")
-//                                                                            .document(ID)
-//                                                                            .set(employeeModel);
-//
-//                                                                    binding.loadingRegister.setVisibility(View.GONE);
-//                                                                    Toast.makeText(getActivity(), "Done", Toast.LENGTH_SHORT).show();
-//                                                                    navController.navigate(R.id.action_registerFragment_to_homeFragment);
-//                                                                }
-//                                                            }).addOnFailureListener(new OnFailureListener()
-//                                                    {
-//                                                        @Override
-//                                                        public void onFailure(@NonNull Exception e)
-//                                                        {
-//                                                            binding.loadingRegister.setVisibility(View.GONE);
-//                                                            binding.btnCreateAccount.setVisibility(View.VISIBLE);
-//                                                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-//                                                        }
-//                                                    });
-//                                                }
-//                                            }).addOnFailureListener(new OnFailureListener()
-//                                    {
-//                                        @Override
-//                                        public void onFailure(@NonNull Exception e)
-//                                        {
-//                                            binding.loadingRegister.setVisibility(View.GONE);
-//                                            binding.btnCreateAccount.setVisibility(View.VISIBLE);
-//                                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-//                                        }
-//                                    });
-//
-////                                    EmployeeModel employeeModel = new EmployeeModel(randomKey, ID, "uri.toString()", firstName, lastName, phoneNumber, email, job, radioButton.getText().toString());
-////                                    databaseRef
-////                                            .collection("Employees")
-////                                            .document(ID)
-////                                            .set(employeeModel);
-////
-////                                    binding.loadingRegister.setVisibility(View.GONE);
-////                                    Toast.makeText(getActivity(), "Done", Toast.LENGTH_SHORT).show();
-////                                    navController.navigate(R.id.action_registerFragment_to_homeFragment);
-//
-//                                }
-//                            }).addOnFailureListener(new OnFailureListener()
-//                    {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e)
-//                        {
-//                            binding.loadingRegister.setVisibility(View.GONE);
-//                            binding.btnCreateAccount.setVisibility(View.VISIBLE);
-//                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
                 }
             }
         });
+    }
 
+    private void backgroundProcess()
+    {
         someActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>()
         {
             @Override
@@ -440,23 +332,7 @@ public class RegisterFragment extends Fragment
     {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
-//        intent.setAction(Intent.ACTION_GET_CONTENT);
         someActivityResultLauncher.launch(intent);
-//        CropImage
-//                .activity()
-//                .start(getContext(), this);
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
-//    {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == 100 && data != null && data.getData() != null)
-//        {
-//            resultURI = data.getData();
-//            binding.imgAddPhoto.setImageURI(resultURI);
-//        }
-//
-//    }
 }

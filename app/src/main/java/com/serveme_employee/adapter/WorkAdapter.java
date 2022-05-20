@@ -27,6 +27,7 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.WorkViewHolder
     private FirebaseAuth firebaseAuth;
     private DatabaseReference deleteRef;
 
+
     public WorkAdapter(ArrayList<WorkModel> workModels)
     {
         this.workModels = workModels;

@@ -48,13 +48,43 @@ public class ProfileFragment extends Fragment
     {
         super.onViewCreated(view, savedInstanceState);
 
+        initViews(view);
+        initDatabase();
+        retriveData();
+        clickViews();
+
+
+//        someActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>()
+//        {
+//            @Override
+//            public void onActivityResult(ActivityResult result)
+//            {
+//                Intent data = result.getData();
+//
+//                if (result.getResultCode() == Activity.RESULT_OK && data != null && data.getData() != null)
+//                {
+//                    profileResultURI = data.getData();
+//                    binding.imgProfile.setImageURI(profileResultURI);
+//                }
+//            }
+//        });
+
+    }
+
+
+    private void initViews(View view)
+    {
         navController = Navigation.findNavController(view);
+    }
 
+    private void initDatabase()
+    {
         firebaseAuth = FirebaseAuth.getInstance();
-//        idRef = FirebaseDatabase.getInstance().getReference().push().getKey();
-//        profileImageRef = FirebaseStorage.getInstance().getReference().child("Images").child("Image_Employees").child(idRef);
         retriveProfileRef = FirebaseDatabase.getInstance().getReference();
+    }
 
+    private void retriveData()
+    {
         retriveProfileRef
                 .child("Employees")
                 .child(firebaseAuth.getUid())
@@ -98,7 +128,10 @@ public class ProfileFragment extends Fragment
                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    private void clickViews()
+    {
         binding.btnSaveProfile.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -107,167 +140,6 @@ public class ProfileFragment extends Fragment
                 navController.navigate(R.id.action_profileFragment_to_homeFragment);
             }
         });
-
-//        binding.imgProfile.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View view)
-//            {
-//                OpenGallery();
-//            }
-//        });
-//
-//        binding.btnEditProfile.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View view)
-//            {
-//                binding.editFnProfile.setCursorVisible(true);
-//                binding.editFnProfile.setFocusableInTouchMode(true);
-//                binding.editLnProfile.setCursorVisible(true);
-//                binding.editLnProfile.setFocusableInTouchMode(true);
-//                binding.editPhoneProfile.setCursorVisible(true);
-//                binding.editPhoneProfile.setFocusableInTouchMode(true);
-//
-//                binding.editFnProfile.requestFocus();
-//                return;
-//            }
-//        });
-
-
-//        binding.btnSaveProfile.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View view)
-//            {
-//
-//                String genderProfile = binding.editGenderProfile.getText().toString();
-//                String fnProfile = binding.editFnProfile.getText().toString();
-//                String lnProfile = binding.editLnProfile.getText().toString();
-//                String phoneProfile = binding.editPhoneProfile.getText().toString();
-//                String emailProfile = binding.editEmailProfile.getText().toString();
-//                String jobProfile = binding.editJobProfile.getText().toString();
-//
-//                if (profileResultURI == null)
-//                {
-//                    Toast.makeText(getActivity(), "Please enter your image again", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                if (TextUtils.isEmpty(fnProfile))
-//                {
-//                    Toast.makeText(getActivity(), "Please enter your first name", Toast.LENGTH_SHORT).show();
-//                    binding.editFnProfile.requestFocus();
-//                    return;
-//                }
-//
-//                if (TextUtils.isEmpty(lnProfile))
-//                {
-//                    Toast.makeText(getActivity(), "Please enter your last name", Toast.LENGTH_SHORT).show();
-//                    binding.editLnProfile.requestFocus();
-//                    return;
-//                }
-//
-//                if (TextUtils.isEmpty(phoneProfile))
-//                {
-//                    Toast.makeText(getActivity(), "Please enter your phone number", Toast.LENGTH_SHORT).show();
-//                    binding.editPhoneProfile.requestFocus();
-//                    return;
-//                }
-//
-//                if (TextUtils.isEmpty(emailProfile))
-//                {
-//                    Toast.makeText(getActivity(), "Please enter your email", Toast.LENGTH_SHORT).show();
-//                    binding.editEmailProfile.requestFocus();
-//                    return;
-//                }
-//
-//                if (TextUtils.isEmpty(jobProfile))
-//                {
-//                    Toast.makeText(getActivity(), "Please enter your job", Toast.LENGTH_SHORT).show();
-//                    binding.editJobProfile.requestFocus();
-//                    return;
-//                }
-//
-//                else
-//                {
-//
-//
-//                    String randomKey = FirebaseDatabase.getInstance().getReference().push().getKey();
-//
-//                    profileImageRef
-//                            .putFile(profileResultURI)
-//                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
-//                            {
-//                                @Override
-//                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
-//                                {
-//                                    profileImageRef
-//                                            .getDownloadUrl()
-//                                            .addOnSuccessListener(new OnSuccessListener<Uri>()
-//                                            {
-//                                                @Override
-//                                                public void onSuccess(Uri uri)
-//                                                {
-//                                                    EmployeeModel employeeModel = new EmployeeModel(randomKey, firebaseAuth.getUid(), uri.toString(), fnProfile, lnProfile, phoneProfile, emailProfile, jobProfile, genderProfile);
-//
-//                                                    retriveProfileRef
-//                                                            .child("Employees")
-//                                                            .child(firebaseAuth.getUid())
-//                                                            .setValue(employeeModel);
-//
-//                                                    retriveProfileRef
-//                                                            .child("Jobs")
-//                                                            .child(jobProfile)
-//                                                            .child(randomKey)
-//                                                            .setValue(employeeModel);
-//
-////                                                    WorkModel workModel = new WorkModel();
-////
-////                                                    retriveProfileRef
-////                                                            .child("Employees")
-////                                                            .child(firebaseAuth.getUid())
-////                                                            .child("Works")
-////                                                            .child(randomKey)
-////                                                            .setValue(workModel);
-//
-//                                                    binding.imgProfile.setImageURI(null);
-//
-//                                                }
-//                                            }).addOnFailureListener(new OnFailureListener()
-//                                    {
-//                                        @Override
-//                                        public void onFailure(@NonNull Exception e)
-//                                        {
-//                                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-//                                        }
-//                                    });
-//                                }
-//                            }).addOnFailureListener(new OnFailureListener()
-//                    {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e)
-//                        {
-//                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//
-////                    EmployeeModel employeeModel = new EmployeeModel(randomKey, firebaseAuth.getUid(), binding.imgProfile.toString(), fnProfile, lnProfile, phoneProfile, emailProfile, jobProfile, genderProfile);
-////
-////                    retriveProfileRef
-////                            .child("Employees")
-////                            .child(firebaseAuth.getUid())
-////                            .setValue(employeeModel);
-////
-////                    retriveProfileRef
-////                            .child("Jobs")
-////                            .child(jobProfile)
-////                            .child(randomKey)
-////                            .setValue(employeeModel);
-//                }
-//            }
-//
-//            });
 
         binding.btnExitProfile.setOnClickListener(new View.OnClickListener()
         {
@@ -278,23 +150,8 @@ public class ProfileFragment extends Fragment
                 navController.navigate(R.id.action_profileFragment_to_loginFragment);
             }
         });
-
-//        someActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>()
-//        {
-//            @Override
-//            public void onActivityResult(ActivityResult result)
-//            {
-//                Intent data = result.getData();
-//
-//                if (result.getResultCode() == Activity.RESULT_OK && data != null && data.getData() != null)
-//                {
-//                    profileResultURI = data.getData();
-//                    binding.imgProfile.setImageURI(profileResultURI);
-//                }
-//            }
-//        });
-
     }
+
 
 //    private void OpenGallery()
 //    {

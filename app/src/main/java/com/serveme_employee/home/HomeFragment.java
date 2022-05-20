@@ -39,13 +39,14 @@ public class HomeFragment extends Fragment
 {
 
     private FragmentHomeBinding binding;
-    private NavController navController;
+//    private NavController navController;
 
     private ArrayList<WorkModel> workModels;
     private WorkAdapter workAdapter;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference retriveRef;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -59,7 +60,17 @@ public class HomeFragment extends Fragment
     {
         super.onViewCreated(view, savedInstanceState);
 
-        navController = Navigation.findNavController(view);
+
+        initViews(view);
+        initDatabase();
+        clickViews();
+        retriveData();
+
+    }
+
+    private void initViews(View view)
+    {
+//        navController = Navigation.findNavController(view);
 
         workModels = new ArrayList<>();
         workAdapter = new WorkAdapter(workModels);
@@ -68,16 +79,23 @@ public class HomeFragment extends Fragment
         binding.rVHome.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         binding.rVHome.setLayoutManager(new GridLayoutManager(getContext(), 2, RecyclerView.VERTICAL, false));
         binding.rVHome.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL));
+    }
 
+    private void initDatabase()
+    {
         firebaseAuth = FirebaseAuth.getInstance();
         retriveRef = FirebaseDatabase.getInstance().getReference();
+    }
+
+    private void clickViews()
+    {
 
         binding.imgAddWork.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                navController.navigate(R.id.action_homeFragment_to_addWorkFragment);
+                Navigation.findNavController(view).navigate(R.id.addWorkFragment);
             }
         });
 
@@ -86,10 +104,13 @@ public class HomeFragment extends Fragment
             @Override
             public void onClick(View view)
             {
-                navController.navigate(R.id.action_homeFragment_to_messagesFragment);
+                Navigation.findNavController(view).navigate(R.id.messagesFragment);
             }
         });
+    }
 
+    private void retriveData()
+    {
         binding.loadingHome.setVisibility(View.VISIBLE);
         retriveRef
                 .child("Employees")

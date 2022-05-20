@@ -57,6 +57,15 @@ public class RequestFragment extends Fragment
     {
         super.onViewCreated(view, savedInstanceState);
 
+
+        initViews(view);
+        initDatabase();
+        retriveData();
+
+    }
+
+    private void initViews(View view)
+    {
         navController = Navigation.findNavController(view);
 
         requestModels = new ArrayList<>();
@@ -64,10 +73,16 @@ public class RequestFragment extends Fragment
         binding.rVRequest.setAdapter(requestAdapter);
         binding.rVRequest.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         binding.rVRequest.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+    }
 
+    private void initDatabase()
+    {
         firebaseAuth = FirebaseAuth.getInstance();
         retriveRef = FirebaseDatabase.getInstance().getReference();
+    }
 
+    private void retriveData()
+    {
         binding.loadingRequest.setVisibility(View.VISIBLE);
         retriveRef
                 .child("Employees")

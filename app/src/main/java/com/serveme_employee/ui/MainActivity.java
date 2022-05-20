@@ -9,6 +9,7 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 
@@ -27,10 +28,17 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        navController = Navigation.findNavController(MainActivity.this, R.id.nav_host);
+        initViews(MainActivity.this);
+
+    }
+
+    private void initViews(MainActivity mainActivity)
+    {
+        navController = Navigation.findNavController(mainActivity, R.id.nav_host);
         NavigationUI.setupWithNavController(binding.bottomNavView, navController);
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener()
         {
+            @SuppressLint("NonConstantResourceId")
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments)
             {

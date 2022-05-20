@@ -40,10 +40,25 @@ public class LoginFragment extends Fragment
     {
         super.onViewCreated(view, savedInstanceState);
 
+
+        initViews(view);
+        initDatabase();
+        clickViews();
+
+    }
+
+    private void initViews(View view)
+    {
         navController = Navigation.findNavController(view);
+    }
 
+    private void initDatabase()
+    {
         firebaseAuth = FirebaseAuth.getInstance();
+    }
 
+    private void clickViews()
+    {
         binding.btnCreateNewAccount.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -85,7 +100,8 @@ public class LoginFragment extends Fragment
                                 @Override
                                 public void onSuccess(AuthResult authResult)
                                 {
-                                    navController.navigate(R.id.action_loginFragment_to_homeFragment);
+                                    Navigation.findNavController(view).navigate(R.id.homeFragment);
+//                                    navController.navigate(R.id.action_loginFragment_to_homeFragment);
                                     Toast.makeText(getActivity(), "Welcome to Home", Toast.LENGTH_SHORT).show();
                                     // Snackbar.make(binding.parentRelativeLogin, "lolololole", Snackbar.LENGTH_SHORT).isShown();
                                 }
@@ -100,7 +116,5 @@ public class LoginFragment extends Fragment
                 }
             }
         });
-
-
     }
 }

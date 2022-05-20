@@ -39,8 +39,19 @@ public class UserDetailFragment extends Fragment
     {
         super.onViewCreated(view, savedInstanceState);
 
-        navController = Navigation.findNavController(view);
 
+        initViews(view);
+        retriveBundle();
+
+    }
+
+    private void initViews(View view)
+    {
+        navController = Navigation.findNavController(view);
+    }
+
+    private void retriveBundle()
+    {
         nameUser = getArguments().getString("User_Name");
         binding.txtUserName.setText(nameUser);
 
@@ -81,6 +92,5 @@ public class UserDetailFragment extends Fragment
 
 //        email = getArguments().getString("User_Email");
 //        binding.fabEmail.setTextAlignment(email);
-
     }
 }

@@ -61,35 +61,36 @@ public class AddWorkFragment extends Fragment
     {
         super.onViewCreated(view, savedInstanceState);
 
-        navController = Navigation.findNavController(view);
+        initViews(view);
+        initDatabase();
+        clickedViews();
+        backgroundProcess();
 
+    }
+
+    private void initViews(View view)
+    {
+        navController = Navigation.findNavController(view);
+    }
+
+    private void initDatabase()
+    {
         firebaseAuth = FirebaseAuth.getInstance();
         idRef = FirebaseDatabase.getInstance().getReference().push().getKey();
         workImageRef = FirebaseStorage.getInstance().getReference().child("Images").child("Employee_Work_Image").child(idRef);
         ID = firebaseAuth.getUid();
         databaseRef = FirebaseDatabase.getInstance().getReference();
+    }
 
-        someActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>()
-        {
-            @Override
-            public void onActivityResult(ActivityResult result)
-            {
-                Intent data = result.getData();
-
-                if (result.getResultCode() == Activity.RESULT_OK && data != null && data.getData() != null)
-                {
-                    workResultURI = data.getData();
-                    binding.imgWork.setImageURI(workResultURI);
-                }
-            }
-        });
-
+    private void clickedViews()
+    {
         binding.imgBtnBack.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                navController.navigate(R.id.action_addWorkFragment_to_homeFragment);
+//                navController.navigate(R.id.action_addWorkFragment_to_homeFragment);
+                Navigation.findNavController(view).navigate(R.id.homeFragment);
             }
         });
 
@@ -161,7 +162,8 @@ public class AddWorkFragment extends Fragment
 
                                                     binding.loadingAddWork.setVisibility(View.GONE);
                                                     Toast.makeText(getActivity(), "Done is Sucessfully", Toast.LENGTH_SHORT).show();
-                                                    navController.navigate(R.id.action_addWorkFragment_to_homeFragment);
+//                                                    navController.navigate(R.id.action_addWorkFragment_to_homeFragment);
+                                                    Navigation.findNavController(view).navigate(R.id.homeFragment);
                                                 }
                                             }).addOnFailureListener(new OnFailureListener()
                                     {
@@ -184,6 +186,24 @@ public class AddWorkFragment extends Fragment
                             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
+                }
+            }
+        });
+    }
+
+    private void backgroundProcess()
+    {
+        someActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>()
+        {
+            @Override
+            public void onActivityResult(ActivityResult result)
+            {
+                Intent data = result.getData();
+
+                if (result.getResultCode() == Activity.RESULT_OK && data != null && data.getData() != null)
+                {
+                    workResultURI = data.getData();
+                    binding.imgWork.setImageURI(workResultURI);
                 }
             }
         });

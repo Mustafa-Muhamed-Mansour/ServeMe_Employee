@@ -39,15 +39,26 @@ public class SplashFragment extends Fragment
     {
         super.onViewCreated(view, savedInstanceState);
 
-        navController = Navigation.findNavController(view);
+        initViews(view);
+        initPostDelay(view);
 
+    }
+
+    private void initViews(View view)
+    {
+        navController = Navigation.findNavController(view);
+    }
+
+    private void initPostDelay(View view)
+    {
         new Handler().postDelayed(new Runnable()
         {
             @Override
             public void run()
             {
 //                navController.navigate(R.id.homeFragment);
-                navController.navigate(R.id.action_splashFragment_to_loginFragment);
+//                navController.navigate(R.id.action_splashFragment_to_loginFragment);
+                Navigation.findNavController(view).navigate(R.id.loginFragment);
             }
         }, 3000); /* or 2300 */
     }
